@@ -50,6 +50,9 @@ backend/venv/lib/python3.11/site-packages/clang/native/libclang.dylib
 #others to remove 
 emotion-recognition/node_modules/
 
+*.csv
+*.dylib
+
 
 # You may need to ignore additional files or directories specific to your project
 # Add any other file patterns to ignore within your project directory if needed
