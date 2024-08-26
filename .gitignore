@@ -40,6 +40,11 @@ backend/venv/
 # do not add pictures and dataset also
 Original_CNN/data/
 Original_CNN/fer2013.csv
+# Ignore large files
+Original_CNN/fer2013.csv
+backend/venv/lib/python3.11/site-packages/torch/lib/libtorch_cpu.dylib
+backend/venv/lib/python3.11/site-packages/tensorflow/libtensorflow_cc.2.dylib
+backend/venv/lib/python3.11/site-packages/clang/native/libclang.dylib
 
 
 #others to remove 
