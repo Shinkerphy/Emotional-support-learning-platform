@@ -1,0 +1,416 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.lesson {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.course-header {
+  width: 100%;
+  background-color: #f8f8f8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.course-header .back-button {
+  background-color: #2a3d66;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  margin: auto;
+}
+
+.course-header .back-button:hover {
+  background-color: #2a3d66;
+}
+
+.course-header .course-name {
+  font-size: 20px;
+  font-weight: bold;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.hero-section {
+  width: 95%;
+  position: relative;
+  margin-top: 30px;
+}
+
+.hero-section img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.buttons {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.buttons .activate {
+  background-color: #4caf50;
+}
+
+.buttons .deactivate {
+  background-color: #f44336;
+}
+
+.content {
+  width: 80%;
+  max-width: 1200px;
+  padding: 20px 0;
+  text-align: left;
+  margin-top: 5px;
+}
+
+.content h1,
+.content h2,
+.content h3,
+.content h4 {
+  margin: 20px 0;
+}
+
+.content p,
+.content ul,
+.content ol {
+  line-height: 1.6;
+  margin: 20px 0;
+}
+
+.diagram {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.diagram img {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+}
+
+.diagram iframe {
+  width: 100%;
+  max-width: 560px;
+  height: 315px;
+  border: none;
+}
+
+.gans {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.gan {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.gan-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.gan-image {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.gan-image img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+}
+
+.education-sources {
+  width: 100%;
+  padding: 40px 0;
+  text-align: center;
+}
+
+.education-sources .sources {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.education-sources .source {
+  flex: 1;
+  max-width: 30%;
+  margin: 10px;
+  background-color: white;
+  padding: 60px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+  width: 100%;
+  background-color: #2c3e50;
+  color: white;
+  padding: 40px 0;
+  text-align: center;
+}
+
+footer .footer-content {
+  width: 80%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+footer .footer-content .footer-logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+footer .footer-content p {
+  margin: 20px 0;
+  line-height: 1.6;
+}
+
+footer .footer-content .contact {
+  margin-top: 20px;
+}
+
+footer .footer-content .contact h4 {
+  margin-bottom: 10px;
+}
+
+footer .footer-content .contact p {
+  margin: 5px 0;
+}
+
+@media (max-width: 768px) {
+  .course-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .course-header .course-name {
+    margin-top: 10px;
+  }
+
+  .buttons {
+    flex-direction: column;
+    margin: 10px 0;
+  }
+
+  .buttons button {
+    width: 100%;
+    max-width: 200px;
+  }
+
+  .content {
+    width: 90%;
+  }
+
+  .gans {
+    flex-direction: column;
+  }
+
+  .gan-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .gan-content p {
+    max-width: 100%;
+  }
+
+  .gan-image img {
+    max-width: 100%;
+  }
+
+  .education-sources .source {
+    max-width: 90%;
+    margin: 10px auto;
+  }
+}
+
+@media (min-width: 769px) {
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .content h1 {
+    text-align: center;
+  }
+
+  .content ol,
+  .content ul {
+    max-width: 80%;
+  }
+
+  .gan-content {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .gan-content p {
+    max-width: 60%;
+  }
+
+  .gan-image {
+    max-width: 40%;
+  }
+}
+
+.activate,
+.deactivate {
+  padding: 1rem 2rem;
+  margin: 0 1rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.activate {
+  background-color: #10b981;
+  color: #ffffff;
+}
+
+.deactivate {
+  background-color: #ef4444;
+  color: #ffffff;
+}
+
+.content {
+  padding: 2rem;
+}
+
+.gan-content {
+  display: flex;
+  align-items: center;
+}
+
+.gan-image img {
+  width: 100%;
+  height: auto;
+  max-width: 300px;
+  margin-left: 1rem;
+}
+
+.diagram {
+  margin: 2rem 0;
+}
+
+.education-sources {
+  padding: 2rem;
+  background-color: #f4f4f4;
+}
+
+.sources {
+  display: flex;
+  justify-content: space-around;
+}
+
+.source {
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  margin: 0 1rem;
+}
+
+.footer-content {
+  background-color: #2a3d66;
+  color: #ffffff;
+  padding: 2rem;
+  text-align: center;
+}
+
+.footer-logo {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.contact h4 {
+  margin-top: 1rem;
+}
+
+.Modal {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 2rem;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.emoji-wrapper {
+  font-size: 5rem;
+  margin-bottom: 1rem;
+}
+
+.message-content h2 {
+  margin-bottom: 1rem;
+}
+
+.message-content p {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.message-content button {
+  background-color: #2563eb;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

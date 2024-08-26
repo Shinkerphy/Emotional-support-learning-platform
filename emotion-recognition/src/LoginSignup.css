@@ -1,0 +1,149 @@
+.login-container {
+  display: flex;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+.logo-section {
+  flex: 1;
+  background-color: #2a3d66;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  color: #93c5fd;
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.form-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f3f4f6;
+}
+
+.form-container {
+  width: 80%;
+  max-width: 400px;
+}
+
+.welcome-text {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.toggle-buttons {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.toggle-btn {
+  flex: 1;
+  padding: 0.5rem;
+  border: none;
+  background-color: #e5e7eb;
+  cursor: pointer;
+}
+
+.toggle-btn.active {
+  background-color: #2a3d66;
+  color: white;
+}
+
+.description {
+  margin-bottom: 1rem;
+}
+
+.input-group {
+  margin-bottom: 1rem;
+}
+
+.input-group label {
+  display: block;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+}
+
+.password-input {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+}
+
+.remember-me input {
+  margin-right: 0.5rem;
+}
+
+.forgot-password {
+  color: #2a3d66;
+  text-decoration: none;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 0.5rem;
+  background-color: #2a3d66;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.terms {
+  font-size: 0.8rem;
+  margin-top: 1rem;
+}
+
+.terms a {
+  color: #3b82f6;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column;
+  }
+
+  .logo-section {
+    height: 30vh;
+  }
+
+  .form-section {
+    height: 70vh;
+  }
+
+  .form-container {
+    width: 90%;
+  }
+}

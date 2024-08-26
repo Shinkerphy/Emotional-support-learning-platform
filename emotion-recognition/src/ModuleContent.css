@@ -1,0 +1,209 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.module-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.module-header {
+  width: 100%;
+  background-color: #f8f8f8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.module-header .back-button {
+  background-color: #2a3d66;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  margin: auto;
+}
+
+.module-header .back-button:hover {
+  background-color: #2a3d66;
+}
+
+.module-header .module-name {
+  font-size: 20px;
+  font-weight: bold;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.hero-section {
+  width: 95%;
+  position: relative;
+  margin-top: 30px;
+}
+
+.hero-section img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.buttons {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.buttons .activate {
+  background-color: #4caf50;
+}
+
+.buttons .deactivate {
+  background-color: #f44336;
+}
+
+.content {
+  width: 80%;
+  max-width: 1200px;
+  padding: 20px 0;
+  text-align: left;
+  margin-top: 5px;
+}
+
+.content h1,
+.content h2,
+.content h3,
+.content h4 {
+  margin: 20px 0;
+}
+
+.content p,
+.content ul,
+.content ol {
+  line-height: 1.6;
+  margin: 20px 0;
+}
+
+.diagram {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.diagram img {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+}
+
+.diagram iframe {
+  width: 100%;
+  max-width: 60px;
+  height: 15px;
+  border: none;
+}
+
+@media (max-width: 768px) {
+  .module-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .module-header .module-name {
+    margin-top: 10px;
+  }
+
+  .buttons {
+    flex-direction: column;
+    margin: 10px 0;
+  }
+
+  .buttons button {
+    width: 100%;
+    max-width: 200px;
+  }
+
+  .content {
+    width: 90%;
+  }
+
+  .diagram img,
+  .diagram iframe {
+    max-width: 100%;
+  }
+}
+
+.Modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 500px;
+  outline: none;
+}
+
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 1000;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.emoji-wrapper {
+  font-size: 50px;
+  margin-bottom: 20px;
+}
+
+.message-content h2 {
+  margin-bottom: 10px;
+}
+
+.message-content p {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.message-content button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #2a3d66;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}

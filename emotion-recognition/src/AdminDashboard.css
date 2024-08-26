@@ -1,0 +1,180 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f2f5;
+}
+
+.admin-dashboard {
+  display: flex;
+}
+
+.admin-sidebar {
+  width: 250px;
+  background-color: #2a3d66;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  height: 100vh;
+  overflow-y: auto;
+  padding: 20px;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.admin-sidebar h1 {
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.admin-sidebar nav ul {
+  list-style-type: none;
+  padding: 0;
+  flex-grow: 1;
+}
+
+.admin-sidebar nav ul li {
+  padding: 10px;
+  cursor: pointer;
+  color: #ffffff;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.admin-sidebar nav ul li:hover,
+.admin-sidebar nav ul li.active {
+  background-color: #e3f2fd;
+  color: #2a3d66;
+  border-radius: 5px;
+}
+
+.admin-sidebar .admin-back-button {
+  display: flex;
+  align-items: center;
+  color: #2a3d66;
+  background-color: #6fa3ef;
+  padding: 8px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+.admin-sidebar .admin-back-button svg {
+  margin-right: 5px;
+}
+
+.admin-main-content {
+  margin-left: 270px; /* Adjust to create space for sidebar */
+  padding: 40px;
+  flex-grow: 1;
+}
+
+.admin-section {
+  max-width: 600px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.admin-section h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.admin-section input,
+.admin-section select,
+.admin-section textarea {
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.admin-button-student,
+.admin-button-tutor,
+.admin-button-course,
+.admin-button-module {
+  background-color: #2a3d66;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 70%;
+  margin: auto;
+}
+
+.admin-button-student:hover,
+.admin-button-tutor:hover,
+.admin-button-course:hover,
+.admin-button-module:hover {
+  background-color: #303f9f;
+}
+
+@media (max-width: 768px) {
+  .admin-sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+
+  .admin-main-content {
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  .admin-section {
+    width: 100%;
+  }
+
+  .admin-sidebar nav ul {
+    flex-grow: unset;
+  }
+}
+
+.admin-back-button {
+  margin: 30px;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.users-table th,
+.users-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.users-table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #f2f2f2;
+  color: black;
+}
+
+textarea {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 10px;
+}
+
+input[type="file"] {
+  margin-bottom: 10px;
+}
+
+.admin-logout-button {
+  margin: 30px;
+  padding: 10px 20px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
