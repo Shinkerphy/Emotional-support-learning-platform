@@ -94,6 +94,7 @@ body {
 .content h3,
 .content h4 {
   margin: 20px 0;
+  text-decoration: none;
 }
 
 .content p,

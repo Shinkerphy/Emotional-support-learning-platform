@@ -229,6 +229,12 @@ const ModuleContent = () => {
           </div>
         </div>
       </Modal>
+      <footer className="module-footer">
+        <p>&copy; 2024 MoodMentor. All rights reserved.</p>
+        <p>
+          <a href="/privacy-policy">Privacy Policy</a>
+        </p>
+      </footer>
     </div>
   );
 };
