@@ -7,6 +7,11 @@
   --white: #ffffff;
   --gray: #6b7280;
   --light-gray: #f3f4f6;
+  --black: #000000;
+}
+a {
+  text-decoration: none;
+  color: inherit; /* This makes sure the link inherits the color from its parent element */
 }
 
 body {
@@ -29,9 +34,9 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.logo {
-  font-size: 24px;
-  color: #2a3d66;
+.header .logo {
+  font-size: 35px;
+  color: var(--primary-blue);
   margin: 10px;
 }
 
@@ -92,7 +97,7 @@ body {
 }
 
 .search-button {
-  background-color: var(--dark-blue);
+  background-color: var(--primary-blue);
   color: white;
   border: none;
   padding: 16px 24px;
@@ -107,6 +112,17 @@ body {
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  height: 300px;
+  width: 400px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s;
+}
+
+.course-card:hover {
+  transform: translateY(-5px);
 }
 
 .course-image {
@@ -117,24 +133,46 @@ body {
 
 .course-info {
   padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.course-info h3 {
+  font-size: 18px;
+  color: var(--black);
+  margin: 0;
+  padding-bottom: 10px;
+}
+
+.instructor {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
 }
 
 .instructor-avatar {
   width: 24px;
   height: 24px;
   border-radius: 50%;
+  margin-right: 8px;
 }
 
-.progress-bar {
-  background-color: var(--light-gray);
-  height: 4px;
-  width: 100%;
-  margin-top: 8px;
+.instructor span {
+  color: var(--gray);
 }
 
-.progress {
-  background-color: var(--green);
-  height: 100%;
+.red-label {
+  background-color: #d32f2f;
+  color: white;
+  padding: 4px 8px;
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
 }
 
 .pagination {
@@ -151,7 +189,6 @@ body {
   border-radius: 4px;
   margin: 0 4px;
 }
-
 main {
   padding: 32px;
   padding-top: 100px; /* Added padding to prevent content from being hidden behind the fixed header */
@@ -163,10 +200,15 @@ main {
   color: var(--dark-blue);
   margin-bottom: 16px;
 }
+.courses-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .courses-section h2 {
   font-size: 24px;
-  color: var(--dark-blue);
+  color: var(--black);
   margin-bottom: 16px;
 }
 
@@ -223,7 +265,7 @@ main {
 
 .features-heading {
   font-size: 28px;
-  color: var(--dark-blue);
+  color: var(--black);
   margin-bottom: 32px;
 }
 
@@ -330,37 +372,43 @@ main {
 }
 
 /* Footer Styles */
-.footer {
+.home-footer {
   background-color: var(--primary-blue);
   color: var(--white);
-  padding: 40px 32px 20px;
+  padding: 40px 32px;
+  text-align: center;
 }
 
-.footer-content {
+.home-footer-content {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   max-width: 1200px;
   margin: 0 auto;
   text-align: left;
+  padding: 20px 0;
 }
 
-.footer-logo {
+.home-footer-logo {
   flex: 1;
   min-width: 250px;
   margin-bottom: 20px;
+  padding-right: 40px;
 }
 
-.footer-logo h2 {
-  font-size: 24px;
+.home-footer-logo h2 {
+  font-size: 28px;
   margin-bottom: 10px;
+  color: var(--secondary-blue);
 }
 
-.footer-logo p {
-  max-width: 300px;
+.home-footer-logo p {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--light-blue);
 }
 
-.footer-links {
+.home-footer-links {
   display: flex;
   gap: 40px;
   flex: 2;
@@ -369,75 +417,112 @@ main {
   margin-bottom: 20px;
 }
 
-.footer-column h3 {
-  font-size: 18px;
-  margin-bottom: 15px;
+.home-footer-column {
+  flex: 1;
+  min-width: 150px;
 }
 
-.footer-column ul {
+.home-footer-column h3 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: var(--secondary-blue);
+}
+
+.home-footer-column ul {
   list-style-type: none;
   padding: 0;
+  margin: 0;
 }
 
-.footer-column ul li {
+.home-footer-column ul li {
   margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: var(--light-blue);
 }
 
-.footer-column ul li a {
-  color: var(--white);
-  text-decoration: none;
-}
-
-.footer-column ul li svg {
+.home-footer-column ul li svg {
   margin-right: 8px;
   vertical-align: middle;
 }
 
-.footer-bottom {
-  width: 100%;
-  text-align: center;
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+.home-footer-column ul li span {
+  display: inline-block;
 }
 
-.footer-nav {
+.home-footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 20px;
+  margin-top: 20px;
+}
+
+.home-footer-nav {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
   margin-bottom: 15px;
 }
 
-.footer-nav a {
-  color: var(--white);
+.home-footer-nav a {
+  color: var(--light-blue);
   text-decoration: none;
-  margin: 0 10px;
+  font-size: 16px;
+}
+
+.home-footer-nav a:hover {
+  text-decoration: underline;
+}
+
+.home-footer-bottom p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--light-blue);
 }
 
 @media (max-width: 768px) {
-  .footer-content {
+  .home-footer-content {
     flex-direction: column;
     text-align: center;
   }
 
-  .footer-logo {
-    margin-bottom: 30px;
-  }
-
-  .footer-links {
+  .home-footer-links {
     flex-direction: column;
     gap: 20px;
+    margin-top: 20px;
+  }
+
+  .home-footer-logo,
+  .home-footer-column {
+    margin-bottom: 20px;
+  }
+
+  .home-footer-nav {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
   }
 }
 
 @media (max-width: 480px) {
-  .footer {
-    padding: 30px 20px 15px;
+  .home-footer {
+    padding: 30px 20px;
   }
 
-  .footer-nav a {
-    display: block;
-    margin: 10px 0;
+  .home-footer-logo h2 {
+    font-size: 24px;
+  }
+
+  .home-footer-column h3 {
+    font-size: 18px;
+  }
+
+  .home-footer-nav {
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
   }
 }
-
 .logout-button {
   margin: 10px;
 }

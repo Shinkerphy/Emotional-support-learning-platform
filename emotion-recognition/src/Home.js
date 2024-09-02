@@ -107,9 +107,17 @@ const SearchBar = () => (
   </div>
 );
 
-const CourseCard = ({ title, instructor, progress, image, moduleId }) => (
+const CourseCard = ({
+  title,
+  instructor,
+  progress,
+  image,
+  moduleId,
+  label,
+}) => (
   <Link to={`/modules/${moduleId}`} className="course-card">
     <img src={image} alt={title} className="course-image" />
+    {label && <div className="red-label">{label}</div>}
     <div className="course-info">
       <h3>{title}</h3>
       <div className="instructor">
@@ -120,10 +128,6 @@ const CourseCard = ({ title, instructor, progress, image, moduleId }) => (
         />
         <span>{instructor}</span>
       </div>
-      <div className="progress-bar">
-        <div className="progress" style={{ width: `${progress}%` }}></div>
-      </div>
-      <span className="lesson-count">Lesson 5 of 7</span>
     </div>
   </Link>
 );
@@ -190,17 +194,17 @@ const CoursesSection = () => {
               key={index}
               title={module.data().name}
               instructor="Lina"
-              progress={70}
               image={`https://picsum.photos/300/200?random=${index}`}
               moduleId={module.id}
+              label="Mood Mentor Academy"
             />
           ))
         ) : (
           <CourseCard
             title="Sample Module"
             instructor="Lina"
-            progress={70}
             image="https://picsum.photos/300/200?random=1"
+            label="Support"
           />
         )}
       </div>
@@ -274,21 +278,21 @@ const EmpoweringSection = () => (
 );
 
 const Footer = () => (
-  <footer className="footer">
-    <div className="footer-content">
-      <div className="footer-logo">
+  <footer className="home-footer">
+    <div className="home-footer-content">
+      <div className="home-footer-logo">
         <h2>MoodMentor</h2>
         <p>
           Unlock your full potential with personalized learning and emotional
-          support
+          support.
         </p>
       </div>
-      <div className="footer-links">
-        <div className="footer-column">
+      <div className="home-footer-links">
+        <div className="home-footer-column">
           <h3>Quick Links</h3>
           <ul>
             <li>
-              <a href="/detect-emotions">Detect emotions</a>
+              <a href="/detect-emotions">Detect Emotions</a>
             </li>
             <li>
               <a href="/courses">Courses</a>
@@ -298,24 +302,25 @@ const Footer = () => (
             </li>
           </ul>
         </div>
-        <div className="footer-column">
-          <h3>Contact us</h3>
+        <div className="home-footer-column">
+          <h3>Contact Us</h3>
           <ul>
             <li>
-              <Mail size={16} /> Email: support@MoodMentor.com
+              <Mail size={16} /> <span>Email: support@MoodMentor.com</span>
             </li>
             <li>
-              <Phone size={16} /> Phone: +1 (123) 456-7890
+              <Phone size={16} /> <span>Phone: +1 (123) 456-7890</span>
             </li>
             <li>
-              <MapPin size={16} /> Address: Northampton square, EC1 258
+              <MapPin size={16} />{" "}
+              <span>Address: Northampton Square, EC1 258</span>
             </li>
           </ul>
         </div>
       </div>
     </div>
-    <div className="footer-bottom">
-      <nav className="footer-nav">
+    <div className="home-footer-bottom">
+      <nav className="home-footer-nav">
         <a href="/courses">Courses</a>
         <a href="/privacy-policy">Privacy Policy</a>
         <a href="/terms">Terms & Conditions</a>
