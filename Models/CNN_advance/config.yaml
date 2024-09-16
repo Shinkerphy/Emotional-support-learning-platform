@@ -1,0 +1,9 @@
+# config.yaml
+experiment_name: "emotion_recognition"
+project_name: "FER_Thesis"
+num_epoch: 100
+learning_rate: 0.0001
+batch_size: 32
+train_dir: "../data/train"
+val_dir: "../data/test"
+num_workers: 4
