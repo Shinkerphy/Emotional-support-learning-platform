@@ -39,6 +39,8 @@ backend/venv/
 
 # do not add pictures and dataset also
 Original_CNN/data/
+dataset
+daset/AffectNet_CNN_Batch128
 Original_CNN/fer2013.csv
 # Ignore large files
 Original_CNN/fer2013.csv

@@ -41,13 +41,18 @@ function EmotionDetection() {
 
   const getMotivationalMessage = (emotion) => {
     const messages = {
-      Angry: "Take a deep breath and relax. Keep pushing forward!",
-      Disgusted: "It's okay to take a break. Try to refocus.",
-      Fearful: "You're doing great. Stay confident!",
-      Happy: "Awesome! Keep up the good work!",
-      Neutral: "Stay focused and keep working.",
-      Sad: "It's okay to feel down. Take a short break.",
-      Surprised: "Unexpected things happen. Keep going!",
+      Angry:
+        "I know it can be frustrating 😤. Take a deep breath, relax, and keep pushing forward! 💪",
+      Disgusted:
+        "It's natural to feel put off sometimes 😖. Take a break and refocus when you're ready 🌱.",
+      Fearful:
+        "It's normal to feel uncertain 😨, but you're doing great! Stay confident and trust yourself 🌟.",
+      Happy: "Awesome! 😄 Keep up the amazing work! You're on fire! 🔥",
+      Neutral:
+        "You're doing well 👍. Stay focused and continue at your pace 🧠.",
+      Sad: "It's okay to feel down sometimes 😔. Take a break, be kind to yourself, and come back stronger 💜.",
+      Surprised:
+        "Surprises can throw us off 😲, but you've got this! Keep going and stay flexible.",
     };
     return messages[emotion] || "Detecting emotion...";
   };
