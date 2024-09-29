@@ -38,7 +38,7 @@ First, download or clone the entire repository. To avoid issues, we recommend fo
 
 ##### 2. Install Dependencies
 Ensure that all libraries listed in the requirements.txt file are installed. We suggest creating a fresh environment to avoid dependency conflicts. You can install the required libraries using the command below:
-       pip install -r requirements.txt
+		pip install -r requirements.txt
 Additionally, you will need to install PyTorch. For GPU support, install the CUDA version by following the instructions on the PyTorch website.
 
 ##### 3. Download Datasets
@@ -46,12 +46,12 @@ You’ll need a training and validation dataset (or a single dataset split into 
 
 Steps:
 
-	1.	Delete the placeholder dataset folder in the repository.
-	2.	Download and extract the dataset into the same location, ensuring the folder structure matches the original repository layout.
+1. Delete the placeholder dataset folder in the repository.
+2. Download and extract the dataset into the same location, ensuring the folder structure matches the original repository layout.
 
 ##### 4. Run Training
 After setting up the datasets and installing dependencies, you can run the training script:
-        python train.py
+        pip train.py
 Before training, you may want to edit the config.yaml file to customize hyperparameters (e.g., learning rate, batch size) or specify the checkpoint paths for saving your models.
 
 ##### 5.Use Checkpoints
