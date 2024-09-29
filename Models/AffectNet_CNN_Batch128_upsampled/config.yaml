@@ -1,0 +1,10 @@
+# config.yaml
+experiment_name: "emotion_recognition"
+project_name: "FER_Thesis"
+num_epoch: 100
+learning_rate: 0.001
+batch_size: 128
+csv_file: "../dataset/labels.csv" # Path to the labels CSV
+img_dir: "../dataset" # Directory where the AffectNet images are stored
+num_workers: 4
+
