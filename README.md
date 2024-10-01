@@ -30,6 +30,7 @@ The Platform is capable of detecting facial expressions on Real-Time. The possib
 - Anger
 - Surprise
 - Disgust
+- Contempt (Only for the AffectNet models)
 
 
 ## Background
