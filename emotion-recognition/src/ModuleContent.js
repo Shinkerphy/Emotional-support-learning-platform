@@ -80,7 +80,9 @@ const ModuleContent = () => {
             if (data.emotion === lastEmotion) {
               setEmotionTimer((prev) => prev + 1);
               if (
-                emotionTimer >= 5 &&
+                // Trigger the modal only if the same emotion has been detected for 15 seconds
+                // and at least 10 seconds have passed since the last modal was closed
+                emotionTimer >= 10 &&
                 (!lastModalCloseTime || new Date() - lastModalCloseTime > 10000)
               ) {
                 setIsModalOpen(true);
@@ -116,6 +118,7 @@ const ModuleContent = () => {
     lastModalCloseTime,
   ]);
 
+  // Emotion detection messages (Intervention messages)
   const getMotivationalMessage = (emotion) => {
     const messages = {
       Angry:

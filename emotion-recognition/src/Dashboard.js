@@ -39,6 +39,8 @@ const Dashboard = () => {
   const [students, setStudents] = useState([]);
   const [emotionData, setEmotionData] = useState([]);
   const [timeSeriesData, setTimeSeriesData] = useState([]);
+  const [allEmotions, setAllEmotions] = useState([]);
+  const [showMoreEmotions, setShowMoreEmotions] = useState(false);
 
   useEffect(() => {
     const fetchStudents = async () => {
@@ -124,6 +126,39 @@ const Dashboard = () => {
     fetchStudentEmotions();
   }, [selectedStudent]);
 
+  useEffect(() => {
+    const fetchAllEmotions = async () => {
+      try {
+        const emotionsQuery = query(collection(db, "emotions"));
+        const emotionsSnapshot = await getDocs(emotionsQuery);
+        const emotionsList = emotionsSnapshot.docs.map((doc) => ({
+          ...doc.data(),
+          timestamp: doc.data().timestamp.toDate(),
+        }));
+        setAllEmotions(emotionsList);
+      } catch (error) {
+        console.error("Error fetching all emotions: ", error);
+      }
+    };
+
+    fetchAllEmotions();
+  }, []);
+
+  // Helper function to calculate average emotions for all students
+  const calculateAverageEmotion = () => {
+    const emotionCounts = allEmotions.reduce((acc, curr) => {
+      acc[curr.emotion] = (acc[curr.emotion] || 0) + 1;
+      return acc;
+    }, {});
+
+    // Removed unused dominantEmotion and directly generate summary
+    const summary = `Most students in this module are feeling ${Object.keys(
+      emotionCounts
+    ).reduce((a, b) => (emotionCounts[a] > emotionCounts[b] ? a : b))}.`;
+
+    return { summary };
+  };
+
   const StudentList = () => (
     <div className="student-list">
       {students.map((student) => (
@@ -200,7 +235,7 @@ const Dashboard = () => {
           <h3>Emotions Record</h3>
           <table>
             <tbody>
-              {timeSeriesData.map((entry, index) => (
+              {timeSeriesData.slice(0, 15).map((entry, index) => (
                 <tr key={index}>
                   <td>{entry.time}</td>
                   <td>
@@ -210,6 +245,28 @@ const Dashboard = () => {
                   </td>
                 </tr>
               ))}
+              {timeSeriesData.length > 15 && (
+                <tr>
+                  <td colSpan="2">
+                    <button
+                      onClick={() => setShowMoreEmotions(!showMoreEmotions)}
+                    >
+                      {showMoreEmotions ? "Show Less" : "Show More"}
+                    </button>
+                  </td>
+                </tr>
+              )}
+              {showMoreEmotions &&
+                timeSeriesData.slice(15).map((entry, index) => (
+                  <tr key={index}>
+                    <td>{entry.time}</td>
+                    <td>
+                      {Object.keys(entry)
+                        .filter((key) => key !== "time")
+                        .join(", ")}
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>
@@ -223,86 +280,50 @@ const Dashboard = () => {
     </div>
   );
 
-  const AllUsersEmotions = () => (
-    <div className="all-users-emotions">
-      <div className="module-header">
-        <img
-          src="https://picsum.photos/24/24"
-          alt="Deep Learning Module"
-          className="module-avatar"
-        />
-        <span className="module-name">Deep Learning Module</span>
-      </div>
-      <div className="chart-container">
-        <ResponsiveContainer width="100%" height={200}>
-          <BarChart data={timeSeriesData}>
-            <XAxis dataKey="time" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            {Object.keys(emotionColors).map((emotion) => (
-              <Bar
-                key={emotion}
-                dataKey={emotion}
-                stackId="a"
-                fill={emotionColors[emotion]}
-              />
-            ))}
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
-      <div className="data-section">
-        <div className="pie-chart-container">
-          <h3>Emotion Distribution Analysis</h3>
+  const AllUsersEmotions = () => {
+    const { summary } = calculateAverageEmotion(); // Use only summary
+
+    return (
+      <div className="all-users-emotions">
+        <div className="module-header">
+          <img
+            src="https://picsum.photos/24/24"
+            alt="Deep Learning Module"
+            className="module-avatar"
+          />
+          <span className="module-name">Deep Learning Module</span>
+        </div>
+        <div className="chart-container">
           <ResponsiveContainer width="100%" height={200}>
-            <PieChart>
-              <Pie
-                data={emotionData}
-                cx="50%"
-                cy="50%"
-                outerRadius={80}
-                fill="#8884d8"
-                dataKey="value"
-                label={({ name, percent }) =>
-                  `${name} ${(percent * 100).toFixed(0)}%`
-                }
-              >
-                {emotionData.map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={emotionColors[entry.name]}
-                  />
-                ))}
-              </Pie>
-            </PieChart>
+            <BarChart data={timeSeriesData}>
+              <XAxis dataKey="time" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              {Object.keys(emotionColors).map((emotion) => (
+                <Bar
+                  key={emotion}
+                  dataKey={emotion}
+                  stackId="a"
+                  fill={emotionColors[emotion]}
+                />
+              ))}
+            </BarChart>
           </ResponsiveContainer>
         </div>
-        <div className="emotions-record">
-          <h3>Emotions Record</h3>
-          <table>
-            <tbody>
-              {timeSeriesData.map((entry, index) => (
-                <tr key={index}>
-                  <td>{entry.time}</td>
-                  <td>
-                    {Object.keys(entry)
-                      .filter((key) => key !== "time")
-                      .join(", ")}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="emotion-summary">
+          <h3>Emotion Insight</h3>
+          <p>{summary}</p> {/* Displaying the emotion insight summary */}
         </div>
+        <button
+          className="back-button"
+          onClick={() => setActiveView("studentList")}
+        >
+          Back to Student List
+        </button>
       </div>
-      <button
-        className="back-button"
-        onClick={() => setActiveView("studentList")}
-      >
-        Back to Student List
-      </button>
-    </div>
-  );
+    );
+  };
 
   return (
     <div className="dashboard-container">
