@@ -1,5 +1,7 @@
-# Emotional-support-learning-platform (Facial Expression Recognition Learning Platform)
-This repository is for my masters dissertation. It is a project that uses emotion recognition to provide emotional support to students when learning on the platform.
+# Emotion-Support Learning Platform: Facial Expression Recognition for Enhanced Student Engagement
+Welcome to the Emotion Recognition for Online Learning Student Support repository. This project is developed as part of my master’s dissertation and aims to harness the power of emotion recognition to provide real-time emotional support to students during their learning journey on an educational platform.
+
+The core idea behind this project is to enhance the student experience by identifying their emotional states and delivering tailored feedback and encouragement based on these emotions. This initiative seeks to not only improve academic performance but also promote emotional well-being in online learning environments.
 
 <p align="center">
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1200px-Python-logo-notext.svg.png" style="height:50px">
@@ -35,11 +37,20 @@ Different CNN architectures including custom CNN, VGGNet, ResNet, and EfficientN
 
 ### Features
 The FER System features :
+- Learning Platform: A web-based educational platform designed to help students engage with their coursework, enhanced by the addition of emotional intelligence that supports their learning process.
+- Real-Time Emotion Detection: Utilizing a Convolutional Neural Network (CNN) trained on an extensive dataset, the platform can detect emotions such as anger, contempt, disgust, fear, happiness, neutrality, sadness, and surprise from students’ facial expressions.
+- Personalized Emotional Support: Based on the detected emotions, the platform provides relevant motivational messages and support, helping students manage stress and stay engaged during their studies.
+- Tutors Feedback and Insights: Tutors are provided with real-time insights into their students’ emotional states, helping them better understand how students are engaging with the material. This data can be used to tailor teaching approaches, offer additional support, and improve overall student outcomes.
+- Admin Dashboard: The platform features an intuitive admin dashboard where administrators can monitor overall system performance, manage user data, and gain insights into the emotional trends of students across different learning sessions. This dashboard offers a comprehensive overview of both individual and group-level emotional data.
+- Web-Based Interface: The platform is designed with a user-friendly interface that allows seamless integration of emotion recognition into virtual classrooms or self-paced learning environments.
+- Privacy-Focused: The system only processes live video feed data temporarily for emotion detection and does not store any personal video data, ensuring student privacy.
 
-- Learning Platform
-- Real-Time Facial emotion detection
-- Tutors feedback and Insights
-- Admin Dashboard
+### Technology Stack
+	•	Python (Flask, OpenCV, PyTorch)
+	•	Machine Learning: CNN-based emotion recognition model
+	•	Computer Vision: Face detection using Haar cascades and image preprocessing
+	•	Frontend: HTML5, CSS3, JavaScript
+	•	Deployment: Flask web application for serving the platform
 
 ## Datasets
 Two datasets (FER2013 and AffectNet processed version) were used for training/validation. The datasets consist of different emotional expressions with FER2013 and AffectNet processed having 7 and 8 emotions respectively.
@@ -143,3 +154,6 @@ If you have not used 'wandb' previously, you will be prompted to enter your API 
 
 ## Author 
 Abdulmalik Abdullahi Shinkafi
+
+### Research Contribution
+This project contributes to the growing field of affective computing and EdTech by exploring the integration of artificial intelligence into online learning platforms. It offers insights into how emotion recognition can be applied to improve student engagement, emotional well-being, and overall learning outcomes. By providing tutors with emotional insights and supporting students with personalized feedback, the platform promotes a more empathetic and effective learning environment.
