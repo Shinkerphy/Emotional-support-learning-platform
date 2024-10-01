@@ -124,7 +124,7 @@ You can modify the file paths to point to your chosen model checkpoint directly 
 
 <p align="center">
     <img src="https://github.com/user-attachments/assets/0cf00623-d6ad-44a2-9675-7dba078df0fd" alt="quentinVid"/>
-    <img src="https://github.com/user-attachments/assets/6f8b4afc-f386-4e9a-ab3b-ecbef1440cea" alt="clementVid"/>
+    <img src="https://github.com/user-attachments/assets/032f50ec-f7ba-4f99-a8b0-a85130e19a6d" alt="clementVid"/>
     <img src="https://github.com/user-attachments/assets/8503a2f4-d3d0-4dee-94de-654071f95018" alt="yohanVid"/>
 </p>
 
