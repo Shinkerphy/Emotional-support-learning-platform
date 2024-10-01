@@ -121,11 +121,11 @@ To run model inference in the backend, replace the .pth file referenced in app.p
 
 You can modify the file paths to point to your chosen model checkpoint directly within the app.py code. If you have your own trained models, you can also use those by adjusting the path accordingly.
 
-## Images
+
 <p align="center">
-    <img src="https://user-images.githubusercontent.com/59691442/172060165-98d48d66-48cc-4d62-9529-2137907c621b.gif" alt="quentinVid"/>
-    <img src="https://user-images.githubusercontent.com/59691442/172060168-c282b57d-6d77-4a51-b44b-4088768a8022.gif" alt="clementVid"/>
-    <img src="https://user-images.githubusercontent.com/59691442/172060174-c7550108-bac5-4bdf-9661-69f7c7c88e52.gif" alt="yohanVid"/>
+    <img src="https://github.com/user-attachments/assets/0cf00623-d6ad-44a2-9675-7dba078df0fd" alt="quentinVid"/>
+    <img src="https://github.com/user-attachments/assets/6f8b4afc-f386-4e9a-ab3b-ecbef1440cea" alt="clementVid"/>
+    <img src="https://github.com/user-attachments/assets/8503a2f4-d3d0-4dee-94de-654071f95018" alt="yohanVid"/>
 </p>
 
 ### Weights & Biases ('wandb')
