@@ -149,7 +149,7 @@ If you have not used 'wandb' previously, you will be prompted to enter your API 
 - [OpenCV](https://opencv.org)
 - [OpenCV weights](https://github.com/opencv/opencv/blob/4.x/data/haarcascades/haarcascade_frontalface_default.xml)
 - [Flask](https://flask.palletsprojects.com/en/2.1.x/)
-- [PyTorch]([https://pypi.org/project/emoji/](https://pytorch.org/))
+- [PyTorch]([https://pypi.org/project/emoji/](https://pytorch.org/)
 - [React](https://react.dev/)
 
 ## Author 
