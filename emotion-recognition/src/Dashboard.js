@@ -24,6 +24,7 @@ import "./Dashboard.css";
 
 const emotionColors = {
   Angry: "#FF6B6B",
+  Contempt: "#FFB347",
   Disgusted: "#4ECDC4",
   Fearful: "#45B7D1",
   Happy: "#FFA07A",
@@ -37,10 +38,10 @@ const Dashboard = () => {
   const [activeView, setActiveView] = useState("studentList");
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [students, setStudents] = useState([]);
-  const [emotionData, setEmotionData] = useState([]);
-  const [timeSeriesData, setTimeSeriesData] = useState([]);
+  const [emotionDataByDate, setEmotionDataByDate] = useState({});
   const [allEmotions, setAllEmotions] = useState([]);
-  const [showMoreEmotions, setShowMoreEmotions] = useState(false);
+  const [expandedDates, setExpandedDates] = useState([]);
+  const [studentEmotionData, setStudentEmotionData] = useState([]);
 
   useEffect(() => {
     const fetchStudents = async () => {
@@ -52,7 +53,6 @@ const Dashboard = () => {
         const userData = userDoc.data();
         if (userData.role !== "tutor") return;
 
-        // Get all courses that include the tutor's module
         const coursesQuery = query(
           collection(db, "courses"),
           where("modules", "array-contains", userData.module)
@@ -60,7 +60,6 @@ const Dashboard = () => {
         const coursesSnapshot = await getDocs(coursesQuery);
         const courseNames = coursesSnapshot.docs.map((doc) => doc.data().name);
 
-        // Get all students who are taking any of the courses
         const studentsQuery = query(
           collection(db, "users"),
           where("role", "==", "student"),
@@ -94,29 +93,24 @@ const Dashboard = () => {
             timestamp: doc.data().timestamp.toDate(),
           }));
 
-          // Aggregate emotion data for the pie chart
+          const groupedByDate = emotionsList.reduce((acc, curr) => {
+            const date = curr.timestamp.toLocaleDateString();
+            if (!acc[date]) acc[date] = [];
+            acc[date].push(curr);
+            return acc;
+          }, {});
+
+          setEmotionDataByDate(groupedByDate);
+
           const emotionCounts = emotionsList.reduce((acc, curr) => {
             acc[curr.emotion] = (acc[curr.emotion] || 0) + 1;
             return acc;
           }, {});
-
           const emotionData = Object.keys(emotionCounts).map((emotion) => ({
             name: emotion,
             value: emotionCounts[emotion],
           }));
-          setEmotionData(emotionData);
-
-          // Prepare time series data for the bar chart
-          const timeSeriesData = emotionsList.reduce((acc, curr) => {
-            const timeKey = curr.timestamp.toLocaleTimeString();
-            if (!acc[timeKey]) {
-              acc[timeKey] = { time: timeKey };
-            }
-            acc[timeKey][curr.emotion] = (acc[timeKey][curr.emotion] || 0) + 1;
-            return acc;
-          }, {});
-
-          setTimeSeriesData(Object.values(timeSeriesData));
+          setStudentEmotionData(emotionData);
         } catch (error) {
           console.error("Error fetching student emotions: ", error);
         }
@@ -144,19 +138,30 @@ const Dashboard = () => {
     fetchAllEmotions();
   }, []);
 
-  // Helper function to calculate average emotions for all students
-  const calculateAverageEmotion = () => {
+  const calculateCumulativeEmotions = () => {
     const emotionCounts = allEmotions.reduce((acc, curr) => {
       acc[curr.emotion] = (acc[curr.emotion] || 0) + 1;
       return acc;
     }, {});
 
-    // Removed unused dominantEmotion and directly generate summary
-    const summary = `Most students in this module are feeling ${Object.keys(
-      emotionCounts
-    ).reduce((a, b) => (emotionCounts[a] > emotionCounts[b] ? a : b))}.`;
+    const emotionData = Object.keys(emotionCounts).map((emotion) => ({
+      name: emotion,
+      value: emotionCounts[emotion],
+    }));
 
-    return { summary };
+    const mostCommonEmotion = Object.keys(emotionCounts).reduce((a, b) =>
+      emotionCounts[a] > emotionCounts[b] ? a : b
+    );
+
+    return { emotionData, mostCommonEmotion };
+  };
+
+  const toggleDateExpand = (date) => {
+    setExpandedDates((prevExpandedDates) =>
+      prevExpandedDates.includes(date)
+        ? prevExpandedDates.filter((d) => d !== date)
+        : [...prevExpandedDates, date]
+    );
   };
 
   const StudentList = () => (
@@ -187,34 +192,128 @@ const Dashboard = () => {
         />
         <span className="student-name">{selectedStudent?.name}</span>
       </div>
+      <div className="data-section">
+        {Object.keys(emotionDataByDate).map((date) => (
+          <div key={date} className="date-section">
+            <div className="date-header" onClick={() => toggleDateExpand(date)}>
+              <h3>{date}</h3>
+              <button className="toggle-button">
+                {expandedDates.includes(date) ? "Hide" : "Show"} Emotions
+              </button>
+            </div>
+            {expandedDates.includes(date) && (
+              <div className="emotions-record">
+                <ul>
+                  {emotionDataByDate[date].map((entry, index) => (
+                    <li key={index}>
+                      Time: {entry.timestamp.toLocaleTimeString()} - Emotion:{" "}
+                      {entry.emotion}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
       <div className="chart-container">
+        <h3>{selectedStudent?.name}'s Emotion Data</h3>
         <ResponsiveContainer width="100%" height={200}>
-          <BarChart data={timeSeriesData}>
-            <XAxis dataKey="time" />
+          <BarChart data={studentEmotionData}>
+            <XAxis dataKey="name" />
             <YAxis />
             <Tooltip />
             <Legend />
-            {Object.keys(emotionColors).map((emotion) => (
-              <Bar
-                key={emotion}
-                dataKey={emotion}
-                stackId="a"
-                fill={emotionColors[emotion]}
-              />
-            ))}
+            {/* Single Bar with distinct colors for each emotion */}
+            <Bar dataKey="value" name="Emotions" label={{ position: "top" }}>
+              {studentEmotionData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={emotionColors[entry.name]} />
+              ))}
+            </Bar>
           </BarChart>
         </ResponsiveContainer>
-      </div>
-      <div className="data-section">
         <div className="pie-chart-container">
-          <h3>Emotion Distribution Analysis</h3>
+          <ResponsiveContainer width="100%" height={200}>
+            <PieChart>
+              <Pie
+                data={studentEmotionData}
+                cx="50%"
+                cy="50%"
+                outerRadius={70}
+                fill="#8884d8"
+                dataKey="value"
+                label={({ name, percent }) =>
+                  `${name} ${(percent * 100).toFixed(0)}%`
+                }
+              >
+                {studentEmotionData.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={emotionColors[entry.name]}
+                  />
+                ))}
+              </Pie>
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
+      <button
+        className="back-button"
+        onClick={() => setActiveView("studentList")}
+      >
+        Back to Student List
+      </button>
+    </div>
+  );
+
+  const AllUsersEmotions = () => {
+    const { emotionData, mostCommonEmotion } = calculateCumulativeEmotions();
+
+    return (
+      <div className="all-users-emotions">
+        <div className="module-header">
+          <img
+            src="https://picsum.photos/24/24"
+            alt="Deep Learning Module"
+            className="module-avatar"
+          />
+          <span className="module-name">Deep Learning Module</span>
+        </div>
+        <div className="chart-container">
+          <ResponsiveContainer width="100%" height={200}>
+            <BarChart data={emotionData}>
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              {/* Here we use one single Bar, and dynamically set the color based on the name */}
+              <Bar
+                dataKey="value"
+                name="Emotions"
+                label={{ position: "top" }} // Show value on top of bars
+              >
+                {emotionData.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={emotionColors[entry.name]}
+                  />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+        <div className="pie-chart-container">
+          <h3>Cumulative Emotion Distribution</h3>
           <ResponsiveContainer width="100%" height={200}>
             <PieChart>
               <Pie
                 data={emotionData}
                 cx="50%"
                 cy="50%"
-                outerRadius={80}
+                className="PieChart"
+                outerRadius={70}
                 fill="#8884d8"
                 dataKey="value"
                 label={({ name, percent }) =>
@@ -231,90 +330,15 @@ const Dashboard = () => {
             </PieChart>
           </ResponsiveContainer>
         </div>
-        <div className="emotions-record">
-          <h3>Emotions Record</h3>
-          <table>
-            <tbody>
-              {timeSeriesData.slice(0, 15).map((entry, index) => (
-                <tr key={index}>
-                  <td>{entry.time}</td>
-                  <td>
-                    {Object.keys(entry)
-                      .filter((key) => key !== "time")
-                      .join(", ")}
-                  </td>
-                </tr>
-              ))}
-              {timeSeriesData.length > 15 && (
-                <tr>
-                  <td colSpan="2">
-                    <button
-                      onClick={() => setShowMoreEmotions(!showMoreEmotions)}
-                    >
-                      {showMoreEmotions ? "Show Less" : "Show More"}
-                    </button>
-                  </td>
-                </tr>
-              )}
-              {showMoreEmotions &&
-                timeSeriesData.slice(15).map((entry, index) => (
-                  <tr key={index}>
-                    <td>{entry.time}</td>
-                    <td>
-                      {Object.keys(entry)
-                        .filter((key) => key !== "time")
-                        .join(", ")}
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <button
-        className="back-button"
-        onClick={() => setActiveView("studentList")}
-      >
-        Back to Student List
-      </button>
-    </div>
-  );
 
-  const AllUsersEmotions = () => {
-    const { summary } = calculateAverageEmotion(); // Use only summary
-
-    return (
-      <div className="all-users-emotions">
-        <div className="module-header">
-          <img
-            src="https://picsum.photos/24/24"
-            alt="Deep Learning Module"
-            className="module-avatar"
-          />
-          <span className="module-name">Deep Learning Module</span>
-        </div>
-        <div className="chart-container">
-          <ResponsiveContainer width="100%" height={200}>
-            <BarChart data={timeSeriesData}>
-              <XAxis dataKey="time" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              {Object.keys(emotionColors).map((emotion) => (
-                <Bar
-                  key={emotion}
-                  dataKey={emotion}
-                  stackId="a"
-                  fill={emotionColors[emotion]}
-                />
-              ))}
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
         <div className="emotion-summary">
           <h3>Emotion Insight</h3>
-          <p>{summary}</p> {/* Displaying the emotion insight summary */}
+          <p>
+            The most common emotion among students in this module is{" "}
+            <strong>{mostCommonEmotion}</strong>.
+          </p>
         </div>
+
         <button
           className="back-button"
           onClick={() => setActiveView("studentList")}
