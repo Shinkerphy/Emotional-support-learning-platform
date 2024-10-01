@@ -14,7 +14,7 @@ Facial Expression Recognition (FER) in python with PyTorch and OpenCV.
 
 ✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨
 
-[➡️➡️➡️Try the AI directly in your Browser !!⬅️⬅️⬅️]()
+[👉🏽👉🏽👉🏽Try the FER sytem directly in your Browser !!👈🏽👈🏽👈🏽]()
 
 ✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨
 
