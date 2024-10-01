@@ -1,12 +1,47 @@
-# Emotional-support-learning-platform
+# Emotional-support-learning-platform (Facial Expression Recognition Learning Platform)
 This repository is for my masters dissertation. It is a project that uses emotion recognition to provide emotional support to students when learning on the platform.
 
-## Background
+<p align="center">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1200px-Python-logo-notext.svg.png" style="height:50px">
+    <img src="https://miro.medium.com/v2/resize:fit:512/1*IMGOKBIN8qkOBt5CH55NSw.png" style="height:50px;">
+    <img src="https://user-images.githubusercontent.com/59691442/172961027-fd9185a5-da77-46e3-97b1-54e99e242822.png" alt="opencvLogo" style="height:50px;">
+    <img src="https://www.fullstackpython.com/img/logos/react.png" alt="kerasLogo" style="height:50px;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/CSS3_logo_and_wordmark.svg" alt="kerasLogo" style="height:50px;">
+</p>
 
- Different CNN architectures including custom CNN, VGGNet, ResNet, and EfficientNet were used to develop the Facial Expression Recognition (FER) Models which were integrated into a custom online learning platform for this project to develop and emotionally aware learning platform. 
+## Description
+Facial Expression Recognition (FER) in python with PyTorch and OpenCV.
+
+✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨
+
+[➡️➡️➡️Try the AI directly in your Browser !!⬅️⬅️⬅️]()
+
+✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨
+
+## Expression recognition
+The Platform is capable of detecting facial expressions on Real-Time. The possible emotions to be detected are as follows: 
+
+- Neutral
+- Sadness
+- Happiness
+- Fear
+- Anger
+- Surprise
+- Disgust
+
+
+## Background
+Different CNN architectures including custom CNN, VGGNet, ResNet, and EfficientNet were used to develop the Facial Expression Recognition (FER) Models which were integrated into a custom online learning platform for this project to develop and emotionally aware learning platform. 
+
+### Features
+The FER System features :
+
+- Learning Platform
+- Real-Time Facial emotion detection
+- Tutors feedback and Insights
+- Admin Dashboard
 
 ## Datasets
-
 Two datasets (FER2013 and AffectNet processed version) were used for training/validation. The datasets consist of different emotional expressions with FER2013 and AffectNet processed having 7 and 8 emotions respectively.
 
 Note: Due to the space limitations for upload on Github, it waas not possible to upload the dataset we used.
@@ -38,7 +73,9 @@ First, download or clone the entire repository. To avoid issues, we recommend fo
 
 ##### 2. Install Dependencies
 Ensure that all libraries listed in the requirements.txt file are installed. We suggest creating a fresh environment to avoid dependency conflicts. You can install the required libraries using the command below:
-		pip install -r requirements.txt
+        ```terminal
+              pip install -r requirements.txt
+         ```
 Additionally, you will need to install PyTorch. For GPU support, install the CUDA version by following the instructions on the PyTorch website.
 
 ##### 3. Download Datasets
@@ -51,8 +88,27 @@ Steps:
 
 ##### 4. Run Training
 After setting up the datasets and installing dependencies, you can run the training script:
-        pip train.py
+        ```terminal
+           pip train.py
+          ```
 Before training, you may want to edit the config.yaml file to customize hyperparameters (e.g., learning rate, batch size) or specify the checkpoint paths for saving your models.
+
+Upon installing all packages and training the model. The app could be strated as follows: 
+
+First cd into emotions-recognition directory. The front end will start on http://localhost:3000
+N.B. run the front end on `app.py` by typing in the terminal the following commands :
+
+```bash
+start
+```
+
+and 
+
+for the backend, cd into backends, it starts on http://localhost:5000
+
+```bash
+python app.py
+```
 
 ##### 5.Use Checkpoints
 You can download our pre-trained model checkpoints from our checkpoints. Once downloaded, place them in the /checkpoints directory of the relevant model folder. Ensure you update the config.yaml file to include the path to the desired checkpoint.
@@ -65,6 +121,25 @@ To run model inference in the backend, replace the .pth file referenced in app.p
 
 You can modify the file paths to point to your chosen model checkpoint directly within the app.py code. If you have your own trained models, you can also use those by adjusting the path accordingly.
 
+## Images
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/59691442/172060165-98d48d66-48cc-4d62-9529-2137907c621b.gif" alt="quentinVid"/>
+    <img src="https://user-images.githubusercontent.com/59691442/172060168-c282b57d-6d77-4a51-b44b-4088768a8022.gif" alt="clementVid"/>
+    <img src="https://user-images.githubusercontent.com/59691442/172060174-c7550108-bac5-4bdf-9661-69f7c7c88e52.gif" alt="yohanVid"/>
+</p>
+
 ### Weights & Biases ('wandb')
 If you have not used 'wandb' previously, you will be prompted to enter your API key into the terminal. You need a (free) 'wandb' account if not already made, and you can find further instructions [here](https://docs.wandb.ai/quickstart).
 
+
+## Libraries
+
+- [Python](https://www.python.org)
+- [OpenCV](https://opencv.org)
+- [OpenCV weights](https://github.com/opencv/opencv/blob/4.x/data/haarcascades/haarcascade_frontalface_default.xml)
+- [Flask](https://flask.palletsprojects.com/en/2.1.x/)
+- [PyTorch]([https://pypi.org/project/emoji/](https://pytorch.org/))
+- [React](https://react.dev/)
+
+## Author 
+Abdulmalik Abdullahi Shinkafi
