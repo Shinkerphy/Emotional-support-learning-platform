@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+# Self-Attention Module to capture long-range dependencies
 class SelfAttention(nn.Module):
     def __init__(self, in_channels):
         super(SelfAttention, self).__init__()
@@ -13,6 +14,7 @@ class SelfAttention(nn.Module):
 
     def forward(self, x):
         batch_size, C, width, height = x.size()
+        # Compute query, key, and value matrices
         query = self.query_conv(x).view(batch_size, -1, width * height).permute(0, 2, 1)
         key = self.key_conv(x).view(batch_size, -1, width * height)
         value = self.value_conv(x).view(batch_size, -1, width * height)
@@ -22,10 +24,12 @@ class SelfAttention(nn.Module):
 
         out = torch.bmm(value, attention.permute(0, 2, 1))
         out = out.view(batch_size, C, width, height)
-
+        
+        # Scale and add input (residual connection)
         out = self.gamma * out + x
         return out
 
+# Residual Block with a skip connection
 class ResidualBlock(nn.Module):
     def __init__(self, in_channels, out_channels, stride=1):
         super(ResidualBlock, self).__init__()
@@ -33,7 +37,8 @@ class ResidualBlock(nn.Module):
         self.bn1 = nn.BatchNorm2d(out_channels)
         self.conv2 = nn.Conv2d(out_channels, out_channels, kernel_size=3, stride=1, padding=1)
         self.bn2 = nn.BatchNorm2d(out_channels)
-
+        
+        # Shortcut for the residual connection
         self.shortcut = nn.Sequential()
         if stride != 1 or in_channels != out_channels:
             self.shortcut = nn.Sequential(
@@ -48,9 +53,11 @@ class ResidualBlock(nn.Module):
         out = F.relu(out)
         return out
 
+# Main CNN model for emotion classification
 class EmotionCNN(nn.Module):
     def __init__(self):
         super(EmotionCNN, self).__init__()
+        # Define sequential layers with Conv2d, BatchNorm, ReLU, and MaxPooling
         self.layer1 = nn.Sequential(
             nn.Conv2d(1, 64, kernel_size=3, padding=1),
             nn.BatchNorm2d(64),
@@ -63,6 +70,8 @@ class EmotionCNN(nn.Module):
             nn.ReLU(),
             nn.MaxPool2d(2)
         )
+
+        # Add residual blocks and self-attention
         self.layer3 = ResidualBlock(128, 256)
         self.layer4 = ResidualBlock(256, 512)
         self.self_attention = SelfAttention(512)
@@ -74,7 +83,8 @@ class EmotionCNN(nn.Module):
 
         # Dummy forward pass to calculate self._to_linear
         self._initialize_to_linear()
-
+        
+        # Fully connected layers
         self.fc1 = nn.Linear(self._to_linear, 1024)
         self.fc2 = nn.Linear(1024, 256)
         self.fc3 = nn.Linear(256, 7)
@@ -85,6 +95,7 @@ class EmotionCNN(nn.Module):
         self._to_linear = x.view(x.size(0), -1).size(1)
     
     def forward(self, x):
+        # Forward pass through convolutional layers and attention
         x = self.convs(x)
         x = x.view(x.size(0), -1)
         x = F.relu(self.fc1(x))

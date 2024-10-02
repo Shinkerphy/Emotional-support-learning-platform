@@ -12,23 +12,29 @@ from dataset import get_data_loaders
 from logger import Logger
 from utils import plot_model_history, evaluate_model, plot_confusion_matrix
 
+#Check config file
 script_dir = os.path.dirname(__file__)
 config_path = os.path.join(script_dir, 'config.yaml')
 
 with open(config_path, 'r') as file:
     config = yaml.safe_load(file)
 
+#Work with CUDA
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 train_loader, val_loader = get_data_loaders(config)
 
+#CNN model
 model = EmotionCNN().to(device)
+#optimizers, Loss, and scheduler
 criterion = CrossEntropyLoss()
 optimizer = optim.AdamW(model.parameters(), lr=config['learning_rate'], weight_decay=1e-2)
 scheduler = CosineAnnealingWarmRestarts(optimizer, T_0=10, T_mult=2)
 
+#Checkpoint
 checkpoint_path = os.path.join(script_dir, 'model.pth')
 wandb_dir = os.path.join(script_dir, 'wandb')
+#make new dir if not exist
 os.makedirs(wandb_dir, exist_ok=True)
 
 def train():
@@ -79,6 +85,7 @@ def train():
         train_accuracy = 100 * correct / total
         train_loss = running_loss / len(train_loader)
 
+        #Validation metrics printing
         val_metrics = evaluate_model(model, val_loader, criterion, device)
         val_accuracy = val_metrics['accuracy']
         val_loss = val_metrics['avg_loss']
@@ -86,6 +93,7 @@ def train():
         recall = val_metrics['recall']
         f1 = val_metrics['f1_score']
         
+        #Train metrics
         train_history['accuracy'].append(train_accuracy)
         train_history['loss'].append(train_loss)
         val_history['accuracy'].append(val_accuracy)
@@ -96,6 +104,7 @@ def train():
               f"Validation Accuracy: {val_accuracy:.2f}%, Validation Loss: {val_loss:.4f}, "
               f"Precision: {precision:.2f}%, Recall: {recall:.2f}%, F1: {f1:.2f}")
         
+        #WandB logging
         logger.log({
             'epoch': epoch + 1,
             'train_accuracy': train_accuracy,

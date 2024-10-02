@@ -3,6 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.checkpoint import checkpoint
 
+#Self Attention Mechanism
 class SelfAttention(nn.Module):
     def __init__(self, in_channels):
         super(SelfAttention, self).__init__()
@@ -22,6 +23,7 @@ class SelfAttention(nn.Module):
         out = out.view(batch_size, C, width, height)
         return self.gamma * out + x
 
+#SE Blocks
 class SEBlock(nn.Module):
     def __init__(self, channel, reduction=16):
         super(SEBlock, self).__init__()
@@ -85,6 +87,7 @@ class SpatialAttention(nn.Module):
         x = self.conv(x)
         return self.sigmoid(x)
 
+#Transfer Blocks
 class TransformerBlock(nn.Module):
     def __init__(self, in_channels, num_heads=4, ff_hidden_dim=512):
         super(TransformerBlock, self).__init__()
@@ -105,6 +108,7 @@ class TransformerBlock(nn.Module):
         x = x.permute(1, 2, 0).view(batch_size, C, H, W)
         return x
 
+VGG Model Blocks
 class VGGBlock(nn.Module):
     def __init__(self, in_channels, out_channels, num_convs):
         super(VGGBlock, self).__init__()
@@ -120,6 +124,7 @@ class VGGBlock(nn.Module):
     def forward(self, x):
         return self.block(x)
 
+#main CNN Model
 class EmotionCNN(nn.Module):
     def __init__(self, num_classes=7):
         super(EmotionCNN, self).__init__()

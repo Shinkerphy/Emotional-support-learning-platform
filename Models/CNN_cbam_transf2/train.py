@@ -12,6 +12,7 @@ from dataset import get_data_loaders
 from logger import Logger
 from utils import plot_model_history, evaluate_model, plot_confusion_matrix
 
+#Loss function
 class FocalLoss(Module):
     def __init__(self, alpha=1, gamma=2, reduction='mean'):
         super(FocalLoss, self).__init__()

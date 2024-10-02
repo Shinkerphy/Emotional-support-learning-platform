@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+# Basic Block for ResNet with two convolution layers and an optional downsample layer
 class BasicBlock(nn.Module):
     expansion = 1
 
@@ -32,13 +33,16 @@ class BasicBlock(nn.Module):
 
         return out
 
+# Bottleneck Block for ResNet with three convolution layers (1x1, 3x3, 1x1)
 class Bottleneck(nn.Module):
     expansion = 4
 
     def __init__(self, in_channels, out_channels, stride=1, downsample=None):
         super(Bottleneck, self).__init__()
+         # 1x1 Convolution to reduce dimension
         self.conv1 = nn.Conv2d(in_channels, out_channels, kernel_size=1, bias=False)
         self.bn1 = nn.BatchNorm2d(out_channels)
+         # 3x3 Convolution 
         self.conv2 = nn.Conv2d(out_channels, out_channels, kernel_size=3, stride=stride, padding=1, bias=False)
         self.bn2 = nn.BatchNorm2d(out_channels)
         self.conv3 = nn.Conv2d(out_channels, out_channels * self.expansion, kernel_size=1, bias=False)
@@ -47,7 +51,7 @@ class Bottleneck(nn.Module):
         self.downsample = downsample
 
     def forward(self, x):
-        identity = x
+        identity = x # Save input for residual connection
 
         out = self.conv1(x)
         out = self.bn1(out)
@@ -68,6 +72,7 @@ class Bottleneck(nn.Module):
 
         return out
 
+# Custom ResNet model
 class CustomResNet(nn.Module):
     def __init__(self, block, layers, num_classes=7):
         super(CustomResNet, self).__init__()
@@ -84,8 +89,10 @@ class CustomResNet(nn.Module):
         self.dropout = nn.Dropout(0.5)
         self.fc = nn.Linear(512 * block.expansion, num_classes)
 
+    # Function to create ResNet layers with the specified block type and number of blocks
     def _make_layer(self, block, out_channels, blocks, stride=1):
         downsample = None
+        # Apply downsampling if input and output dimensions differ
         if stride != 1 or self.in_channels != out_channels * block.expansion:
             downsample = nn.Sequential(
                 nn.Conv2d(self.in_channels, out_channels * block.expansion, kernel_size=1, stride=stride, bias=False),
@@ -93,6 +100,7 @@ class CustomResNet(nn.Module):
             )
 
         layers = []
+         # Add the first block, which may include downsampling
         layers.append(block(self.in_channels, out_channels, stride, downsample))
         self.in_channels = out_channels * block.expansion
         for _ in range(1, blocks):
@@ -110,7 +118,8 @@ class CustomResNet(nn.Module):
         x = self.layer2(x)
         x = self.layer3(x)
         x = self.layer4(x)
-
+        
+        # Pool, flatten, and apply fully connected layer
         x = self.avgpool(x)
         x = torch.flatten(x, 1)
         x = self.dropout(x)
@@ -118,6 +127,7 @@ class CustomResNet(nn.Module):
 
         return x
 
+# Functions for ResNet variants
 def custom_resnet50(num_classes=7):
     return CustomResNet(Bottleneck, [3, 4, 6, 3], num_classes=num_classes)
 

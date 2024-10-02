@@ -7,6 +7,7 @@ import wandb
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, classification_report, roc_auc_score, average_precision_score
 import cv2
 
+# Function to plot training and validation accuracy and loss history
 def plot_model_history(train_history, val_history, epochs, logger):
     fig, axs = plt.subplots(1, 2, figsize=(15, 5))
     axs[0].plot(range(1, epochs + 1), train_history['accuracy'])
@@ -29,6 +30,7 @@ def plot_model_history(train_history, val_history, epochs, logger):
         'train_loss_plot': wandb.Image(fig)
     })
 
+# Function to evaluate the model performance
 def evaluate_model(model, data_loader, criterion, device):
     model.eval()
     correct = 0
@@ -75,7 +77,8 @@ def evaluate_model(model, data_loader, criterion, device):
         'roc_auc': roc_auc,
         'average_precision': avg_precision
     }
-
+    
+# Function to plot the confusion matrix
 def plot_confusion_matrix(cm, class_names, title):
     fig, ax = plt.subplots(figsize=(10, 8))
     sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", xticklabels=class_names, yticklabels=class_names)
@@ -85,6 +88,7 @@ def plot_confusion_matrix(cm, class_names, title):
     plt.savefig('confusion_matrix.png')
     plt.show()
 
+# Function to display real-time emotion prediction using webcam feed
 def display():
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model = EmotionCNN().to(device)

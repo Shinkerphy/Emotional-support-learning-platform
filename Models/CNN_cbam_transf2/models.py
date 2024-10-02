@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+# Self attention Mechanism
 class SelfAttention(nn.Module):
     def __init__(self, in_channels):
         super(SelfAttention, self).__init__()
@@ -21,6 +22,7 @@ class SelfAttention(nn.Module):
         out = out.view(batch_size, C, width, height)
         return self.gamma * out + x
 
+#Squeeze and Excitation Block(SE BLocks)
 class SEBlock(nn.Module):
     def __init__(self, channel, reduction=16):
         super(SEBlock, self).__init__()
@@ -38,6 +40,7 @@ class SEBlock(nn.Module):
         y = self.fc(y).view(b, c, 1, 1)
         return x * y.expand_as(x)
 
+#Convolutional Block Attention Mechanism
 class CBAM(nn.Module):
     def __init__(self, in_channels, reduction=16, kernel_size=7):
         super(CBAM, self).__init__()
@@ -68,6 +71,7 @@ class ChannelAttention(nn.Module):
         out = avg_out + max_out
         return self.sigmoid(out)
 
+#Spatial attention for the CBAM
 class SpatialAttention(nn.Module):
     def __init__(self, kernel_size=7):
         super(SpatialAttention, self).__init__()
@@ -84,6 +88,7 @@ class SpatialAttention(nn.Module):
         x = self.conv(x)
         return self.sigmoid(x)
 
+#Residual blocks
 class ResidualBlock(nn.Module):
     def __init__(self, in_channels, out_channels):
         super(ResidualBlock, self).__init__()
@@ -126,6 +131,7 @@ class TransformerBlock(nn.Module):
         x = x.permute(1, 2, 0).view(batch_size, C, H, W)
         return x
 
+#The main CNN for detection class
 class EmotionCNN(nn.Module):
     def __init__(self, num_classes=7):
         super(EmotionCNN, self).__init__()
@@ -180,6 +186,7 @@ class EmotionCNN(nn.Module):
         x = self.adaptive_pool(x)
         x = x.view(x.size(0), -1)
         
+        #Dropout
         x = self.dropout(F.leaky_relu(self.fc1(x), 0.1))
         x = self.dropout(F.leaky_relu(self.fc2(x), 0.1))
         x = self.fc3(x)

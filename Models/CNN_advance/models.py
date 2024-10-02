@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+# Squeeze-and-Excitation Block to recalibrate channel-wise feature responses
 class SEBlock(nn.Module):
     def __init__(self, channel, reduction=16):
         super(SEBlock, self).__init__()
@@ -19,6 +20,7 @@ class SEBlock(nn.Module):
         y = self.fc(y).view(b, c, 1, 1)
         return x * y.expand_as(x)
 
+# Multi-Head Attention block for capturing relationships across channels
 class MultiHeadAttention(nn.Module):
     def __init__(self, in_channels, num_heads=8):
         super(MultiHeadAttention, self).__init__()
@@ -63,6 +65,7 @@ class MultiHeadAttention(nn.Module):
         attention_output = self.proj_dropout(attention_output)
         return attention_output
 
+# Convolution block with SEBlock and Mish activation
 class ConvBlock(nn.Module):
     def __init__(self, in_channels, out_channels, kernel_size=3, stride=1, padding=1):
         super(ConvBlock, self).__init__()
@@ -78,6 +81,7 @@ class ConvBlock(nn.Module):
         x = self.act(x)
         return x
 
+# Residual block with shortcut connections
 class ResidualBlock(nn.Module):
     def __init__(self, in_channels, out_channels):
         super(ResidualBlock, self).__init__()
@@ -97,12 +101,14 @@ class ResidualBlock(nn.Module):
         out += self.shortcut(residual)
         return out
 
+# Main CNN architecture for emotion classification
 class EmotionCNN(nn.Module):
     def __init__(self, num_classes=7):
         super(EmotionCNN, self).__init__()
         self.conv1 = ConvBlock(1, 64, kernel_size=7, stride=2, padding=3)
         self.pool = nn.MaxPool2d(2, 2)
-
+        
+        # Residual and attention blocks
         self.res_block1 = ResidualBlock(64, 128)
         self.res_block2 = ResidualBlock(128, 256)
         self.res_block3 = ResidualBlock(256, 512)
@@ -110,10 +116,12 @@ class EmotionCNN(nn.Module):
         self.attention1 = MultiHeadAttention(128)
         self.attention2 = MultiHeadAttention(256)
         self.attention3 = MultiHeadAttention(512)
-
+        
+        # Dropout and pooling
         self.dropout = nn.Dropout(0.5)
         self.adaptive_pool = nn.AdaptiveAvgPool2d((1, 1))
-
+        
+        # Fully connected layers
         self.fc1 = nn.Linear(512, 1024)
         self.fc2 = nn.Linear(1024, 256)
         self.fc3 = nn.Linear(256, num_classes)
@@ -127,7 +135,8 @@ class EmotionCNN(nn.Module):
         x = self.attention1(x)
         x = x.permute(0, 2, 1).view(b, c, h, w)
         x = self.pool(x)
-
+        
+        # Residual block 2 with attention
         x = self.res_block2(x)
         b, c, h, w = x.size()
         x = x.view(b, c, -1).permute(0, 2, 1)
@@ -142,6 +151,8 @@ class EmotionCNN(nn.Module):
         x = x.permute(0, 2, 1).view(b, c, h, w)
         x = self.pool(x)
 
+
+        # Adaptive pooling and fully connected layers
         x = self.adaptive_pool(x)
         x = x.view(x.size(0), -1)
 

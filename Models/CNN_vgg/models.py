@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+# VGG-like Block with multiple convolutional layers, batch normalization, and ReLU
 class VGGBlock(nn.Module):
     def __init__(self, in_channels, out_channels, num_convs):
         super(VGGBlock, self).__init__()
@@ -16,6 +17,7 @@ class VGGBlock(nn.Module):
     def forward(self, x):
         return self.block(x)
 
+# Main CNN model for emotion classification
 class EmotionCNN(nn.Module):
     def __init__(self, num_classes=7):
         super(EmotionCNN, self).__init__()

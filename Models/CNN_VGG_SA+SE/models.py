@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+#Self Attention Block
 class SelfAttention(nn.Module):
     def __init__(self, in_channels):
         super(SelfAttention, self).__init__()
@@ -21,6 +22,7 @@ class SelfAttention(nn.Module):
         out = out.view(batch_size, C, width, height)
         return self.gamma * out + x
 
+#SE Block
 class SEBlock(nn.Module):
     def __init__(self, in_channels, reduction=16):
         super(SEBlock, self).__init__()
@@ -52,6 +54,7 @@ class VGGBlock(nn.Module):
     def forward(self, x):
         return self.block(x)
 
+#Main Emotion CNN Model
 class EmotionCNN(nn.Module):
     def __init__(self, num_classes=7):
         super(EmotionCNN, self).__init__()

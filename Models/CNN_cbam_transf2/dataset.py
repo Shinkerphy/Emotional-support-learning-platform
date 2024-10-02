@@ -2,6 +2,7 @@ import torch
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
 
+
 def get_data_loaders(config):
     transform = transforms.Compose([
         transforms.Resize((224, 224)),  # Upsample to 224x224
