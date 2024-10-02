@@ -11,15 +11,6 @@ The core idea behind this project is to enhance the student experience by identi
     <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/CSS3_logo_and_wordmark.svg" alt="kerasLogo" style="height:50px;">
 </p>
 
-## Description
-Facial Expression Recognition (FER) in python with PyTorch and OpenCV.
-
-✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨
-
-[👉🏽👉🏽👉🏽Try the FER sytem directly in your Browser !!👈🏽👈🏽👈🏽]()
-
-✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨
-
 ## Expression recognition
 The Platform is capable of detecting facial expressions on Real-Time. The possible emotions to be detected are as follows: 
 
@@ -139,6 +130,16 @@ You can modify the file paths to point to your chosen model checkpoint directly 
     <img src="https://github.com/user-attachments/assets/032f50ec-f7ba-4f99-a8b0-a85130e19a6d" alt="clementVid"/>
     <img src="https://github.com/user-attachments/assets/8503a2f4-d3d0-4dee-94de-654071f95018" alt="yohanVid"/>
 </p>
+
+### Tutors Dashboard (Emotional Data Insights from the Tutor Dashboard)
+
+This shows a comprehensive overview of the Tutor Dashboard's capabilities in monitoring and visualizing emotional data. The dashboard displays real-time emotional states and cumulative emotional insights of students, using various data visualizations such as bar and pie charts. These tools enable tutors to track emotional trends, gauge student engagement, and make data-driven decisions to enhance the learning experience.
+
+<p align="center">
+    <img src="https://github.com/user-attachments/assets/6a0d723a-a3cb-42dc-b820-357a96af0589" alt="quentinVid"/>
+    <img src="https://github.com/user-attachments/assets/83a9f82b-6382-447b-8a82-c4e7c27a0cb7" alt="quentinVid"/>
+</p>
+
 
 ### Weights & Biases ('wandb')
 If you have not used 'wandb' previously, you will be prompted to enter your API key into the terminal. You need a (free) 'wandb' account if not already made, and you can find further instructions [here](https://docs.wandb.ai/quickstart).
