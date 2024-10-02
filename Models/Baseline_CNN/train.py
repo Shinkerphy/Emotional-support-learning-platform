@@ -70,7 +70,7 @@ def train():
         train_accuracy = 100 * correct / total
         train_loss = running_loss / len(train_loader)
 
-        # Validation
+        # Validation Metrics
         val_metrics = evaluate_model(model, val_loader, criterion, device)
         val_accuracy = val_metrics['accuracy']
         val_loss = val_metrics['avg_loss']
@@ -79,16 +79,19 @@ def train():
         f1 = val_metrics['f1_score']
         val_cm = val_metrics['confusion_matrix']
         
+        #Train Metrics
         train_history['accuracy'].append(train_accuracy)
         train_history['loss'].append(train_loss)
         val_history['accuracy'].append(val_accuracy)
         val_history['loss'].append(val_loss)
         
+        # Print Metrics locally
         print(f"Epoch [{epoch + 1}/{config['num_epoch']}], "
               f"Train Accuracy: {train_accuracy:.2f}%, Train Loss: {train_loss:.4f}, "
               f"Validation Accuracy: {val_accuracy:.2f}%, Validation Loss: {val_loss:.4f}, "
               f"Precision: {precision:.2f}%, Recall: {recall:.2f}%, F1: {f1:.2f}")
         
+        # Log metrics to WandB
         logger.log({
             'epoch': epoch + 1,
             'train_accuracy': train_accuracy,
@@ -101,6 +104,7 @@ def train():
             'val_confusion_matrix': val_cm
         })
     
+    # Save  Model checkpoints
     torch.save(model.state_dict(), checkpoint_path)
     plot_model_history(train_history, val_history, config['num_epoch'], logger)
 
