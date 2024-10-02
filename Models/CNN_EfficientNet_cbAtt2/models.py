@@ -3,6 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from efficientnet_pytorch import EfficientNet
 
+#Self-attention
 class SelfAttention(nn.Module):
     def __init__(self, in_dim):
         super(SelfAttention, self).__init__()
@@ -53,6 +54,7 @@ class SpatialAttention(nn.Module):
         x = self.conv1(x)
         return self.sigmoid(x)
 
+#CBAM 
 class CBAM(nn.Module):
     def __init__(self, in_planes, ratio=16, kernel_size=7):
         super(CBAM, self).__init__()
@@ -63,7 +65,7 @@ class CBAM(nn.Module):
         x = x * self.channel_attention(x)
         x = x * self.spatial_attention(x)
         return x
-
+#Emotion custom EfficientNet model
 class CustomEfficientNet(nn.Module):
     def __init__(self, num_classes=7):
         super(CustomEfficientNet, self).__init__()

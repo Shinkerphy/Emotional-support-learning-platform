@@ -1,6 +1,7 @@
 import torch.nn as nn
 import torch.nn.functional as F
 
+#CNN model
 class EmotionCNN(nn.Module):
     def __init__(self):
         super(EmotionCNN, self).__init__()

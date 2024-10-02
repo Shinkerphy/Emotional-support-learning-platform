@@ -3,6 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from efficientnet_pytorch import EfficientNet
 
+#Self-Attention Mechanism
 class SelfAttention(nn.Module):
     def __init__(self, in_dim):
         super(SelfAttention, self).__init__()
@@ -25,6 +26,7 @@ class SelfAttention(nn.Module):
         out = self.gamma * out + x
         return out
 
+#Custom EfficientNet Architecture
 class CustomEfficientNet(nn.Module):
     def __init__(self, num_classes=7):
         super(CustomEfficientNet, self).__init__()
